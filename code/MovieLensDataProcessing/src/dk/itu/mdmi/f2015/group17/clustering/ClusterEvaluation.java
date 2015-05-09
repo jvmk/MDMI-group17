@@ -1,3 +1,5 @@
+package dk.itu.mdmi.f2015.group17.clustering;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;

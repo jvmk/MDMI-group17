@@ -1,3 +1,5 @@
+package dk.itu.mdmi.f2015.group17.statistics;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.Objects;
