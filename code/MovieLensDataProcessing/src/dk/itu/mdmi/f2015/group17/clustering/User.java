@@ -26,32 +26,68 @@ public class User implements ClusterItem {
     private double mRatingMusical;
     private double mRatingWestern;
     private double mRatingFilmnoir;
+    private double mId = -1.0;
 
+    /**
+     * Equivalent to {@code fromArray(ratings, 0)}
+     * @param ratings The attributes that describe the user's average rating.
+     * @return a {@code User} object with the data values found in {@code ratings}.
+     */
     public static User fromArray(String[] ratings) {
+        return fromArray(ratings, 0);
+    }
+
+    /**
+     * Produce a {@code User} from a string array.
+     * @param attributeValues The user attribute values.
+     * @param offset The index (inclusive) in {@code data} where the attributes describing the user's average ratings begin.
+     * @return a {@code User} object with the data values found in {@code data}.
+     */
+    public static User fromArray(String[] attributeValues, int offset) {
         User u = new User();
-        int i = 0;
-        u.mRatingAdventure = Double.parseDouble(ratings[i++]);
-        u.mRatingAnimation = Double.parseDouble(ratings[i++]);
-        u.mRatingChildren = Double.parseDouble(ratings[i++]);
-        u.mRatingComedy = Double.parseDouble(ratings[i++]);
-        u.mRatingFantasy = Double.parseDouble(ratings[i++]);
-        u.mRatingRomance = Double.parseDouble(ratings[i++]);
-        u.mRatingDrama = Double.parseDouble(ratings[i++]);
-        u.mRatingAction = Double.parseDouble(ratings[i++]);
-        u.mRatingCrime = Double.parseDouble(ratings[i++]);
-        u.mRatingThriller = Double.parseDouble(ratings[i++]);
-        u.mRatingHorror = Double.parseDouble(ratings[i++]);
-        u.mRatingMystery = Double.parseDouble(ratings[i++]);
-        u.mRatingScifi = Double.parseDouble(ratings[i++]);
-        u.mRatingImax = Double.parseDouble(ratings[i++]);
-        u.mRatingDocumentary = Double.parseDouble(ratings[i++]);
-        u.mRatingWar = Double.parseDouble(ratings[i++]);
-        u.mRatingMusical = Double.parseDouble(ratings[i++]);
-        u.mRatingWestern = Double.parseDouble(ratings[i++]);
-        u.mRatingFilmnoir = Double.parseDouble(ratings[i++]);
+        int i = offset;
+        u.mRatingAdventure = Double.parseDouble(attributeValues[i++]);
+        u.mRatingAnimation = Double.parseDouble(attributeValues[i++]);
+        u.mRatingChildren = Double.parseDouble(attributeValues[i++]);
+        u.mRatingComedy = Double.parseDouble(attributeValues[i++]);
+        u.mRatingFantasy = Double.parseDouble(attributeValues[i++]);
+        u.mRatingRomance = Double.parseDouble(attributeValues[i++]);
+        u.mRatingDrama = Double.parseDouble(attributeValues[i++]);
+        u.mRatingAction = Double.parseDouble(attributeValues[i++]);
+        u.mRatingCrime = Double.parseDouble(attributeValues[i++]);
+        u.mRatingThriller = Double.parseDouble(attributeValues[i++]);
+        u.mRatingHorror = Double.parseDouble(attributeValues[i++]);
+        u.mRatingMystery = Double.parseDouble(attributeValues[i++]);
+        u.mRatingScifi = Double.parseDouble(attributeValues[i++]);
+        u.mRatingImax = Double.parseDouble(attributeValues[i++]);
+        u.mRatingDocumentary = Double.parseDouble(attributeValues[i++]);
+        u.mRatingWar = Double.parseDouble(attributeValues[i++]);
+        u.mRatingMusical = Double.parseDouble(attributeValues[i++]);
+        u.mRatingWestern = Double.parseDouble(attributeValues[i++]);
+        u.mRatingFilmnoir = Double.parseDouble(attributeValues[i++]);
         return u;
     }
 
+    /**
+     * Equivalent to {@code fromArray(ratings, 0)}, but also sets the user's id.
+     * @param attributeValues See {@link #fromArray(String[], int)}.
+     * @param offset See {@link #fromArray(String[], int)}.
+     * @param userId The ID of the user.
+     * @return The user returned by {@link #fromArray(String[], int)} with its ID field set to {@code userId}.
+     */
+    public static User fromArray(String[] attributeValues, int offset, double userId) {
+        User u = fromArray(attributeValues, offset);
+        u.mId = userId;
+        return u;
+    }
+
+    public double getId() {
+        return mId;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getDistance(ClusterItem other) {
         User usr = (User) other;
