@@ -3,7 +3,7 @@ package dk.itu.mdmi.f2015.group17.clustering;
 /**
  * Contract that items placed in a {@link dk.itu.mdmi.f2015.group17.clustering.Cluster} must fulfill.
  */
-interface ClusterItem {
+public interface ClusterItem {
 
     /**
      * Calculates the squared distance between this {@code ClusterItem} and another {@code ClusterItem}
