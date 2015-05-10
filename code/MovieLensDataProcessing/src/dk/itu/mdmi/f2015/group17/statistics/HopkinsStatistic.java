@@ -3,7 +3,10 @@ package dk.itu.mdmi.f2015.group17.statistics;
 import dk.itu.mdmi.f2015.group17.clustering.User;
 import dk.itu.mdmi.f2015.group17.clustering.ClusterItem;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
 /**
  * TODO add class documentation.
@@ -48,6 +51,34 @@ public class HopkinsStatistic {
         double artificialDistances = sumDistancesToNearestNeighbors(mArtificialSamples);
         double realDistances = sumDistancesToNearestNeighbors(mRealSamples);
         return artificialDistances / (artificialDistances + realDistances);
+    }
+
+    /**
+     * Creates a sample of {@code source} of size {@code sampleSize}.
+     * @param sampleSize The size (count of elements) in the sample that is to be produced.
+     * @param source The source from which the sample is to be extracted.
+     * @return The sample.
+     * @throws java.lang.IllegalArgumentException if {@code sampleSize > source.size()}.
+     */
+    private List<User> sample(int sampleSize, List<User> source) {
+        if (sampleSize > source.size()) {
+            throw new IllegalArgumentException("cannot produce a sample of a size that exceeds that of the input dataset");
+        }
+        Random rnd = new Random();
+        ArrayList<User> result = new ArrayList<>();
+        HashSet<Integer> sampled = new HashSet<>();
+        while (result.size() < sampleSize) {
+            int idx = rnd.nextInt(source.size());
+            if (sampled.contains(idx)) {
+                // element was already added to the sample.
+                continue;
+            }
+            // Log that item is now part of the sample.
+            sampled.add(idx);
+            // Add sample to result.
+            result.add(source.get(idx));
+        }
+        return result;
     }
 
     private double sumDistancesToNearestNeighbors(List<User> input) {
