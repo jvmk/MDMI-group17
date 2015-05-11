@@ -22,8 +22,13 @@ public class HopkinsStatistic {
     public static void main(String[] args) throws IOException {
         String fullDatasetFilepath = "/Users/varmarken/Desktop/hopkins/mode_genre_ratings_all.csv";
         String artificialSamplesFilepath = "/Users/varmarken/Desktop/hopkins/artificialpoints15k.csv";
-        HopkinsStatistic hs = HopkinsStatistic.fromFiles(fullDatasetFilepath, artificialSamplesFilepath);
-        System.out.println("The Hopkins value is: " + hs.computeHopkinsValue());
+        for (int i = 0; i < 25; i++) {
+//            System.out.println("==========================================================================");
+            System.out.println("Run number: " + (i+1));
+            HopkinsStatistic hs = HopkinsStatistic.fromFiles(fullDatasetFilepath, artificialSamplesFilepath);
+            System.out.println("The Hopkins value is: " + hs.computeHopkinsValue());
+            System.out.println("==========================================================================");
+        }
     }
 
     public static HopkinsStatistic fromFiles(String fullDataSetFilePath,
@@ -54,9 +59,9 @@ public class HopkinsStatistic {
 //        for (User artificial : mArtificialSamples) {
 //            artificialDistances +=
 //        }
-        System.out.println("Finding sum of distances to nearest neighbors for artificial data points...");
+//        System.out.println("Finding sum of distances to nearest neighbors for artificial data points...");
         double artificialDistances = sumDistancesToNearestNeighbors(mArtificialSamples);
-        System.out.println("Finding sum of distances to nearest neighbors for real data points...");
+//        System.out.println("Finding sum of distances to nearest neighbors for real data points...");
         double realDistances = sumDistancesToNearestNeighbors(mRealSamples);
         return artificialDistances / (artificialDistances + realDistances);
     }
