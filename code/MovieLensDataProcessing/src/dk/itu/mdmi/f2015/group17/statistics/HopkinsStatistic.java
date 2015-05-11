@@ -19,13 +19,19 @@ public class HopkinsStatistic {
     // 2 Read artificial samples set.
     // 3 Read experimental samples set.
 
+    public static void main(String[] args) throws IOException {
+        String fullDatasetFilepath = "/Users/varmarken/Desktop/hopkins/mode_genre_ratings_all.csv";
+        String artificialSamplesFilepath = "/Users/varmarken/Desktop/hopkins/artificialpoints15k.csv";
+        HopkinsStatistic hs = HopkinsStatistic.fromFiles(fullDatasetFilepath, artificialSamplesFilepath);
+        System.out.println("The Hopkins value is: " + hs.computeHopkinsValue());
+    }
+
     public static HopkinsStatistic fromFiles(String fullDataSetFilePath,
-                                             String realSamplesFilePath,
                                              String artificialSamplesFilePath) throws IOException {
         UserFileReader reader = new UserFileReader();
         List<User> fullDataset = reader.readerUsersFile(fullDataSetFilePath);
-        List<User> realSamples = reader.readerUsersFile(realSamplesFilePath);
         List<User> artificialSamples = reader.readerUsersFile(artificialSamplesFilePath);
+        List<User> realSamples = sample(artificialSamples.size(), fullDataset);
         HopkinsStatistic hs = new HopkinsStatistic(fullDataset, realSamples, artificialSamples);
         return hs;
     }
@@ -48,7 +54,9 @@ public class HopkinsStatistic {
 //        for (User artificial : mArtificialSamples) {
 //            artificialDistances +=
 //        }
+        System.out.println("Finding sum of distances to nearest neighbors for artificial data points...");
         double artificialDistances = sumDistancesToNearestNeighbors(mArtificialSamples);
+        System.out.println("Finding sum of distances to nearest neighbors for real data points...");
         double realDistances = sumDistancesToNearestNeighbors(mRealSamples);
         return artificialDistances / (artificialDistances + realDistances);
     }
@@ -60,7 +68,7 @@ public class HopkinsStatistic {
      * @return The sample.
      * @throws java.lang.IllegalArgumentException if {@code sampleSize > source.size()}.
      */
-    private List<User> sample(int sampleSize, List<User> source) {
+    private static List<User> sample(int sampleSize, List<User> source) {
         if (sampleSize > source.size()) {
             throw new IllegalArgumentException("cannot produce a sample of a size that exceeds that of the input dataset");
         }
