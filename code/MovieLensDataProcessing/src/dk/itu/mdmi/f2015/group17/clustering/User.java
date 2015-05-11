@@ -91,25 +91,53 @@ public class User implements ClusterItem {
     @Override
     public double getDistance(ClusterItem other) {
         User usr = (User) other;
-        return Math.pow(mRatingAction - usr.mRatingAction, 2.0) +
-                Math.pow(mRatingAdventure - usr.mRatingAdventure, 2.0) +
-                Math.pow(mRatingAnimation - usr.mRatingAnimation, 2.0) +
-                Math.pow(mRatingChildren - usr.mRatingChildren, 2.0) +
-                Math.pow(mRatingComedy - usr.mRatingComedy, 2.0) +
-                Math.pow(mRatingFantasy - usr.mRatingFantasy, 2.0) +
-                Math.pow(mRatingRomance - usr.mRatingRomance, 2.0) +
-                Math.pow(mRatingDrama - usr.mRatingDrama, 2.0) +
-                Math.pow(mRatingCrime - usr.mRatingCrime, 2.0) +
-                Math.pow(mRatingThriller - usr.mRatingThriller, 2.0) +
-                Math.pow(mRatingHorror - usr.mRatingHorror, 2.0) +
-                Math.pow(mRatingMystery - usr.mRatingMystery, 2.0) +
-                Math.pow(mRatingScifi - usr.mRatingScifi, 2.0) +
-                Math.pow(mRatingImax - usr.mRatingImax, 2.0) +
-                Math.pow(mRatingDocumentary - usr.mRatingDocumentary, 2.0) +
-                Math.pow(mRatingWar - usr.mRatingWar, 2.0) +
-                Math.pow(mRatingMusical - usr.mRatingMusical, 2.0) +
-                Math.pow(mRatingWestern - usr.mRatingWestern, 2.0) +
-                Math.pow(mRatingFilmnoir - usr.mRatingFilmnoir, 2.0);
+//        return Math.pow(mRatingAction - usr.mRatingAction, 2.0) +
+//                Math.pow(mRatingAdventure - usr.mRatingAdventure, 2.0) +
+//                Math.pow(mRatingAnimation - usr.mRatingAnimation, 2.0) +
+//                Math.pow(mRatingChildren - usr.mRatingChildren, 2.0) +
+//                Math.pow(mRatingComedy - usr.mRatingComedy, 2.0) +
+//                Math.pow(mRatingFantasy - usr.mRatingFantasy, 2.0) +
+//                Math.pow(mRatingRomance - usr.mRatingRomance, 2.0) +
+//                Math.pow(mRatingDrama - usr.mRatingDrama, 2.0) +
+//                Math.pow(mRatingCrime - usr.mRatingCrime, 2.0) +
+//                Math.pow(mRatingThriller - usr.mRatingThriller, 2.0) +
+//                Math.pow(mRatingHorror - usr.mRatingHorror, 2.0) +
+//                Math.pow(mRatingMystery - usr.mRatingMystery, 2.0) +
+//                Math.pow(mRatingScifi - usr.mRatingScifi, 2.0) +
+//                Math.pow(mRatingImax - usr.mRatingImax, 2.0) +
+//                Math.pow(mRatingDocumentary - usr.mRatingDocumentary, 2.0) +
+//                Math.pow(mRatingWar - usr.mRatingWar, 2.0) +
+//                Math.pow(mRatingMusical - usr.mRatingMusical, 2.0) +
+//                Math.pow(mRatingWestern - usr.mRatingWestern, 2.0) +
+//                Math.pow(mRatingFilmnoir - usr.mRatingFilmnoir, 2.0);
+
+        return getAttrDist(mRatingAction, usr.mRatingAction) +
+                getAttrDist(mRatingAdventure, usr.mRatingAdventure) +
+                getAttrDist(mRatingAnimation, usr.mRatingAnimation) +
+                getAttrDist(mRatingChildren, usr.mRatingChildren) +
+                getAttrDist(mRatingComedy, usr.mRatingComedy) +
+                getAttrDist(mRatingFantasy, usr.mRatingFantasy) +
+                getAttrDist(mRatingRomance, usr.mRatingRomance) +
+                getAttrDist(mRatingDrama, usr.mRatingDrama) +
+                getAttrDist(mRatingCrime, usr.mRatingCrime) +
+                getAttrDist(mRatingThriller, usr.mRatingThriller) +
+                getAttrDist(mRatingHorror, usr.mRatingHorror) +
+                getAttrDist(mRatingMystery, usr.mRatingMystery) +
+                getAttrDist(mRatingScifi, usr.mRatingScifi) +
+                getAttrDist(mRatingImax, usr.mRatingImax) +
+                getAttrDist(mRatingDocumentary, usr.mRatingDocumentary) +
+                getAttrDist(mRatingWar, usr.mRatingWar) +
+                getAttrDist(mRatingMusical, usr.mRatingMusical) +
+                getAttrDist(mRatingWestern, usr.mRatingWestern) +
+                getAttrDist(mRatingFilmnoir, usr.mRatingFilmnoir);
     }
 
+    private double getAttrDist(double attrObj1, double attrObj2) {
+        double maxDist = 5.0 - 0.5;
+        if (attrObj1 == 0.0 || attrObj2 == 0.0) {
+            // If value is missing in either object, the distance is maximal.
+            return Math.pow(maxDist, 2.0);
+        }
+        return Math.pow(attrObj1 - attrObj2, 2.0);
+    }
 }
